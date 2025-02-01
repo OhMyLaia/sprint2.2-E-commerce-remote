@@ -39,7 +39,10 @@ function buy(id) {
 
 //* Exercise 2
 function cleanCart() {
-
+    cart = [];
+    total = 0;
+    console.log(`cart cleaned, total -> ${total}`);
+    console.table(cart);
 }
 
 //* Exercise 3
