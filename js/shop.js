@@ -11,8 +11,7 @@ let total = 0;
 
 //* Exercise 1
 function buy(id) {
-    // 1. Loop for to the array products to get the item to add to cart
-    // 2. Add found product to the cart array
+
     let itemInCart = {};
     let itemToFind = products.find(item => item.id === id);
     
@@ -47,8 +46,25 @@ function cleanCart() {
 
 //* Exercise 3
 function calculateTotal() {
-    // Calculate total price of the cart using the "cartList" array
+    let itemInCart = {};
 
+    try {
+        if (!itemInCart) {
+            throw new Error(`Product ID:${id} not found`);
+
+        } else if (cart.length == 0) {
+            alert(`Cart is empty`);
+
+        } else {
+            for (let i = 0; i < cart.length ; i++) {
+                itemInCart = cart[i];
+                total += itemInCart.price;
+            }
+        }
+        console.log(totalSum)
+    } catch (error) {
+        alert(error.message);
+    }
 }
 
 //* Exercise 4
@@ -62,6 +78,9 @@ function applyPromotionsCart() {
 // Exercise 5
 function printCart() {
     // Fill the shopping cart modal manipulating the shopping cart dom
+    let cartList = document.getElementById("cart_list");
+    cartList.innerHTML = "";
+
 }
 
 
