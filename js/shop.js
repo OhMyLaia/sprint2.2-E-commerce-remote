@@ -1,28 +1,61 @@
-"use strict"
+import products from "./products.js";
 
-// => Reminder, it's extremely important that you debug your code. 
-// ** It will save you a lot of time and frustration!
-// ** You'll understand the code better than with console.log(), and you'll also find errors faster. 
-// ** Don't hesitate to seek help from your peers or your mentor if you still struggle with debugging.
-
-// Improved version of cartList. Cart is an array of products (objects), but each one has a quantity field to define its quantity, so these products are not repeated.
 let cart = [];
-let total = 0;
+let totalWithDiscount = 0;
+let subtotal = 0;
+const toFindElement = (arr, item) => arr.find( element => element.id == item );
+const resultDiv = htmlID => document.getElementById(htmlID);
+function showMessage(message, div) { div.innerHTML = message; }
+let cartList = resultDiv("cart_list");
+let totalPriceDiv = resultDiv("total_price");
+let subtotalPriceDiv = resultDiv("subtotal_price");
+let numInCartButtonDiv = resultDiv("count_product");
+
+
+
+function addEventListeners() {
+    document.querySelectorAll(".add-to-cart").forEach((button, i) => {
+        button.addEventListener("click", () => buy(i + 1));
+        itemsBoughtButton()
+    })
+
+    const openCartModal = document.querySelector(".open-cart-modal");
+    openCartModal.addEventListener("click", open_modal);
+
+}
+
+addEventListeners();
+
+
+function itemsBoughtButton() {
+    let cartArrayLength = cart.length + 1;
+    const countProduct = document.querySelector("#count_product");
+
+    // if (cart.length == 0) {
+    //     countProduct.innerHTML = cart.length;
+    // } else {
+        countProduct.innerHTML = cartArrayLength;
+    // }
+}
+
 
 //* Exercise 1
 function buy(id) {
 
+    let itemToFind = toFindElement(products, id);
     let itemInCart = {};
-    let itemToFind = products.find(item => item.id === id);
     
     try {
+
         if (!itemToFind) {
             throw new Error(`Product ID:${id} not found`);
 
         } else {
-            itemInCart = cart.find(item => item.id === id);
+            itemInCart = toFindElement(cart, id);
                 if (itemInCart) {
-                    itemInCart.quantity++;
+                    console.log(itemInCart);
+                    itemToFind.quantity++;
+                    console.table(cart);
 
                 } else {
                     itemToFind.quantity = 1;
@@ -31,55 +64,116 @@ function buy(id) {
                     console.table(cart);
                 }
         }
+
     } catch (error) {
         alert(error.message);
     }
 }
 
+
 //* Exercise 2
 function cleanCart() {
     cart = [];
-    total = 0;
-    console.log(`cart cleaned, total -> ${total}`);
+    showMessage("0", totalPriceDiv);
+    showMessage("", cartList);
+    totalWithDiscount = 0;
+    subtotal = 0;
+
+    console.log(`cart cleaned, totalWithDiscount -> ${totalWithDiscount}`);
     console.table(cart);
 }
 
 //* Exercise 3
 function calculateTotal() {
+    // asi cada vez que llame a la funcion no se suma el resultado
+    // de la ultima vez que llame a la funcion
+    totalWithDiscount = 0;
+    subtotal = 0;
     let itemInCart = {};
+    let itemsPrice = 0;
 
     try {
-        if (!itemInCart) {
-            throw new Error(`Product ID:${id} not found`);
+        if (cart.length == 0) {
+            console.log(`Cart is empty`);
+            return totalWithDiscount
+        }
 
-        } else if (cart.length == 0) {
-            alert(`Cart is empty`);
+        for (let i = 0; i < cart.length ; i++) {
+            itemInCart = cart[i];
+            itemsPrice = parseFloat(itemInCart.price);
+            // este bloque if añade el precio de cada producto de la cesta al totalWithDiscount
+            if (itemInCart.hasOwnProperty("offer") && itemInCart.quantity >= itemInCart.offer.number) {
+                totalWithDiscount += applyPromoToProduct(itemInCart);
+                subtotal += itemInCart.quantity * itemsPrice;
 
-        } else {
-            for (let i = 0; i < cart.length ; i++) {
-                itemInCart = cart[i];
-                total += itemInCart.price;
+            } else {
+                totalWithDiscount += itemInCart.quantity * itemsPrice;
+                subtotal += itemInCart.quantity * itemsPrice;
             }
         }
-        console.log(totalSum)
+        console.log(`totalWithDiscount: ${totalWithDiscount}`)
+        return totalWithDiscount.toFixed(2);
+        
     } catch (error) {
         alert(error.message);
     }
 }
 
+// setTimeout(calculatetotalWithDiscount, 8000);
+
 //* Exercise 4
-function applyPromotionsCart() {
-    // Apply promotions to each item in the array "cart"
+function applyPromoToProduct(myProduct) {
+
+    let totalQuantity = myProduct.quantity;
+    if (totalQuantity == 0) return;
+
+    let discountAmount = 0;
+    let minItemsForPromo = myProduct.offer.number;
+    let unitsInPromo = Math.floor(totalQuantity / minItemsForPromo) * minItemsForPromo;
+    let restOfUnits = totalQuantity % minItemsForPromo;
+    let priceWithDiscount = 0;
+
+    //? no volvemos a comprobar si entra en la oferta porque llamamos a esta funcion en
+    //? calculateTotal() y ahi ya hacemos las validaciones
+    discountAmount = myProduct.price * unitsInPromo * myProduct.offer.percent / 100;
+    priceWithDiscount = myProduct.price * unitsInPromo - discountAmount;
+    // restOfUnits pasa a valer el total del precio de los productos que no entran en la promo
+    restOfUnits *= myProduct.price;
+
+    console.log((priceWithDiscount + restOfUnits).toFixed(2));
+    return parseFloat((priceWithDiscount + restOfUnits).toFixed(2));
 
 }
 
-
-
 // Exercise 5
 function printCart() {
-    // Fill the shopping cart modal manipulating the shopping cart dom
-    let cartList = document.getElementById("cart_list");
-    cartList.innerHTML = "";
+
+    console.log(`totalWithDiscount printed: ${totalWithDiscount}`)
+    showMessage("", cartList);
+    showMessage(calculateTotal(), totalPriceDiv);
+
+    cart.forEach(item => console.log(`checking item: ${item}`));
+    
+    cart.forEach( item => {
+        const cartiListRow = document.createElement("tr");
+        cartiListRow.innerHTML =
+        `
+        <td>${item.name}</td>
+        <td>${item.price}</td>
+        <td>${item.quantity}</td>
+        <td>${(item.price * item.quantity).toFixed(2)}</td>
+        `;
+
+        if (item.offer) {
+            showMessage(subtotal, subtotalPriceDiv);
+        } else {
+            showMessage(subtotal, subtotalPriceDiv);
+        }
+        
+        cartList.appendChild(cartiListRow);
+    });
+
+
 
 }
 

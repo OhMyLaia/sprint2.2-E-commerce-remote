@@ -6,6 +6,9 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 	<meta name="description" content="" />
 	<meta name="author" content="" />
+	<script defer src="js/shop.js" type="module"></script>
+	<script defer src="js/checkout.js"></script>
+
 	<title>ShopNow</title>
 	<!-- Favicon-->
 	<link rel="icon" type="image/x-icon" href="images/favicon.ico" />
@@ -31,8 +34,8 @@
 				</button>
 				<ul class="navbar-nav me-3 me-lg-0 d-flex flex-row align-items-center">
 					<li class="dropdown search-dropdown nav-item py-lg-3">
-						<a href="javascript:void(0)" class="btn btn-outline-dark flex-center" type="button"
-							data-bs-toggle="modal" data-bs-target="#cartModal" onclick="open_modal()"
+						<a href="javascript:void(0)" class="btn btn-outline-dark flex-center open-cart-modal" type="button"
+							data-bs-toggle="modal" data-bs-target="#cartModal"
 							data-bs-auto-close="outside">
 							<i class="fas fa-shopping-cart me-1"></i> Cart <span
 								class="badge bg-dark text-white ms-1 rounded-pill" id="count_product">0</span>
@@ -83,8 +86,8 @@
 							</div>
 						</div>
 						<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-							<div class="text-center"><button type="button" onclick="buy(1)"
-									class="btn btn-outline-dark">Add to cart</button></div>
+							<div class="text-center"><button type="button"
+									class="btn btn-outline-dark add-to-cart" >Add to cart</button></div>
 						</div>
 					</div>
 				</div>
@@ -98,8 +101,8 @@
 							</div>
 						</div>
 						<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-							<div class="text-center"><button type="button" onclick="buy(2)"
-									class="btn btn-outline-dark">Add to cart</button></div>
+							<div class="text-center"><button type="button"
+									class="btn btn-outline-dark add-to-cart">Add to cart</button></div>
 						</div>
 					</div>
 				</div>
@@ -113,8 +116,8 @@
 							</div>
 						</div>
 						<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-							<div class="text-center"><button type="button" onclick="buy(3)"
-									class="btn btn-outline-dark">Add to cart</button></div>
+							<div class="text-center"><button type="button"
+									class="btn btn-outline-dark add-to-cart">Add to cart</button></div>
 						</div>
 					</div>
 				</div>
@@ -136,8 +139,8 @@
 							</div>
 						</div>
 						<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-							<div class="text-center"><button type="button" onclick="buy(4)"
-									class="btn btn-outline-dark">Add to cart</button></div>
+							<div class="text-center"><button type="button"
+									class="btn btn-outline-dark add-to-cart">Add to cart</button></div>
 						</div>
 					</div>
 				</div>
@@ -151,8 +154,8 @@
 							</div>
 						</div>
 						<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-							<div class="text-center"><button type="button" onclick="buy(5)"
-									class="btn btn-outline-dark">Add to cart</button></div>
+							<div class="text-center"><button type="button"
+									class="btn btn-outline-dark add-to-cart">Add to cart</button></div>
 						</div>
 					</div>
 				</div>
@@ -166,8 +169,8 @@
 							</div>
 						</div>
 						<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-							<div class="text-center"><button type="button" onclick="buy(6)"
-									class="btn btn-outline-dark">Add to cart</button></div>
+							<div class="text-center"><button type="button"
+									class="btn btn-outline-dark add-to-cart">Add to cart</button></div>
 						</div>
 					</div>
 				</div>
@@ -189,8 +192,8 @@
 							</div>
 						</div>
 						<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-							<div class="text-center"><button type="button" onclick="buy(7)"
-									class="btn btn-outline-dark">Add to cart</button></div>
+							<div class="text-center"><button type="button"
+									class="btn btn-outline-dark add-to-cart">Add to cart</button></div>
 						</div>
 					</div>
 				</div>
@@ -204,8 +207,8 @@
 							</div>
 						</div>
 						<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-							<div class="text-center"><button type="button" onclick="buy(8)"
-									class="btn btn-outline-dark">Add to cart</button></div>
+							<div class="text-center"><button type="button"
+									class="btn btn-outline-dark add-to-cart">Add to cart</button></div>
 						</div>
 					</div>
 				</div>
@@ -219,8 +222,8 @@
 							</div>
 						</div>
 						<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-							<div class="text-center"><button type="button" onclick="buy(9)"
-									class="btn btn-outline-dark">Add to cart</button></div>
+							<div class="text-center"><button type="button"
+									class="btn btn-outline-dark add-to-cart">Add to cart</button></div>
 						</div>
 					</div>
 				</div>
@@ -258,7 +261,10 @@
 						</tbody>
 					</table>
 					<div class="text-center fs-3">
-						Total: $<span id="total_price">100</span>
+						Subtotal: $<del><span id="subtotal_price">0</span></del>
+					</div>
+					<div class="text-center fs-3">
+						Total: $<span id="total_price">total</span>
 					</div>
 					<div class="text-center">
 						<a href="checkout.html" class="btn btn-primary m-3">Checkout</a>
@@ -275,8 +281,8 @@
 		crossorigin="anonymous"></script>
 
 	<!-- Core theme JS-->
-	<script src="js/shop.js"></script>
-	<script src="js/checkout.js"></script>
+	<!-- <script src="/js/shop.js" type="module"></script> -->
+
 </body>
 
 </html>
