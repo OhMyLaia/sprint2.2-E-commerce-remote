@@ -26,6 +26,17 @@ function addEventListeners() {
         openCartModal.addEventListener("click", open_modal);
     }
 
+    document.getElementById("checkout-form").addEventListener("submit", function(event) {
+        event.preventDefault();
+        validate();
+        console.log("name ->", document.getElementById("fName").value);
+    })
+
+    const submitBtn = document.querySelector("btn-submit");
+    if (submitBtn) {
+        submitBtn.addEventListener("click", validate);
+    }
+
 }
 
 addEventListeners();

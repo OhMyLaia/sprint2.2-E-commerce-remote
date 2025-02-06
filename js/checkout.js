@@ -18,15 +18,16 @@ function validateNumbersOnly(input) {
 	return regex.test(input);
 }
 
-const errorMessage = (errorDiv, errorInput) => {
-	// document.getElementById(htmlID);
-	let message =  `Error, ${errorInput} is missing or there is invalid data!`
-	errorDiv.innerHTML = message;
-}
+// const errorMessage = (errorDiv, errorInput) => {
+// 	// document.getElementById(htmlID);
+// 	let message =  `Error, ${errorInput} is missing or there is invalid data!`
+// 	errorDiv.innerHTML = message;
+// }
 
 
 // Exercise 6
 export function validate() {
+	console.log(`estamos en validate`)
 	let error = 0;
 	// Get the input fields
 	let fName = document.getElementById("fName");
@@ -46,53 +47,52 @@ export function validate() {
 
 
 	// Validate fields entered by the user: name, phone, password, and email
-		if (fName.value.length < 3 || validateOnlyLetters(fName.value) == false) {
+		if (!fName || fName.value.length < 3 || !validateOnlyLetters(fName.value)) {
 			error++;
 			errorName.style.display = "block";
+			console.log(`entrando al if`)
 		} else {
 			errorName.style.display = "none";
 		}
 
-		if (fLastname.value.length < 3 || validateOnlyLetters(fLastname.value) == false) {
+		if (!fLastname || fLastname.value.length < 3 || !validateOnlyLetters(fLastname.value)) {
 			error ++;
 			errorLastname.style.display = "block";
 		} else {
 			errorLastname.style.display = "none";
 		}
 	
-		if (fEmail.value.length < 3 || validateEmail(fEmail.value) == false) {
+		if (!fEmail || fEmail.value.length < 3 || !validateEmail(fEmail.value)) {
 			error++;
 			errorEmail.style.display = "block";
 		} else {
 			errorEmail.style.display = "none";
 		}
 
-		if (fPassword.value.length < 3 || validateLettersNumbersOnly(fPassword.value)) {
+		if (!fPassword || fPassword.value.length < 3 || !validateLettersNumbersOnly(fPassword.value)) {
 			error++;
 			errorPassword.style.display = "block";
 		} else {
 			errorPassword.style.display = "none";
 		}
 
-		if (fAddress.value.length < 3) {
+		if (!fAddress || fAddress.value.length < 3) {
 			error++;
 			errorAddress.style.display = "block";
 		} else {
 			errorAddress.style.display = "none";
 		}
 
-		if (fPhoneNum.value.length < 3 || validateNumbersOnly(fPhoneNum.value) == false) {
+		if (!fPhoneNum || fPhoneNum.value.length < 3 || !validateNumbersOnly(fPhoneNum.value)) {
 			error++;
 			errorPhoneNum.style.display = "block";
 		} else {
 			errorPhoneNum.style.display = "none";
 		}
 	
-		// if (error > 0) {
-		// 	alert("Error");
-		// } else {
-		// 	alert("OK");
-		// }
-
-
+		if (error > 0) {
+			alert("Error");
+		} else {
+			alert("OK");
+		}
 }
