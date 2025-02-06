@@ -49,6 +49,7 @@ export function validate() {
 		if (!fName || fName.value.length < 3 || !validateOnlyLetters(fName.value)) {
 			error++;
 			errorName.style.display = "block";
+			fName.classList.add("is-invalid");
 			console.log(`entrando al if`)
 		} else {
 			errorName.style.display = "none";
@@ -57,6 +58,7 @@ export function validate() {
 		if (!fLastname || fLastname.value.length < 3 || !validateOnlyLetters(fLastname.value)) {
 			error ++;
 			errorLastname.style.display = "block";
+			fLastname.classList.add("is-invalid");
 		} else {
 			errorLastname.style.display = "none";
 		}
@@ -64,6 +66,7 @@ export function validate() {
 		if (!fEmail || fEmail.value.length < 3 || !validateEmail(fEmail.value)) {
 			error++;
 			errorEmail.style.display = "block";
+			fEmail.classList.add("is-invalid");
 		} else {
 			errorEmail.style.display = "none";
 		}
@@ -71,6 +74,7 @@ export function validate() {
 		if (!fPassword || fPassword.value.length < 3 || !validateLettersNumbersOnly(fPassword.value)) {
 			error++;
 			errorPassword.style.display = "block";
+			fPassword.classList.add("is-invalid");
 		} else {
 			errorPassword.style.display = "none";
 		}
@@ -78,6 +82,7 @@ export function validate() {
 		if (!fAddress || fAddress.value.length < 3) {
 			error++;
 			errorAddress.style.display = "block";
+			fAddress.classList.add("is-invalid");
 		} else {
 			errorAddress.style.display = "none";
 		}
@@ -85,6 +90,7 @@ export function validate() {
 		if (!fPhoneNum || fPhoneNum.value.length < 3 || !validateNumbersOnly(fPhoneNum.value)) {
 			error++;
 			errorPhoneNum.style.display = "block";
+			fPhoneNum.classList.add("is-invalid");
 		} else {
 			errorPhoneNum.style.display = "none";
 		}
