@@ -26,7 +26,7 @@ const errorMessage = (errorDiv, errorInput) => {
 
 
 // Exercise 6
-function validate() {
+export function validate() {
 	let error = 0;
 	// Get the input fields
 	let fName = document.getElementById("fName");

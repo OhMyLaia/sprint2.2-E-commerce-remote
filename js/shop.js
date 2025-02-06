@@ -1,4 +1,5 @@
 import products from "./products.js";
+import { validate } from "./checkout.js";
 
 
 let cart = [];
@@ -21,7 +22,9 @@ function addEventListeners() {
     })
 
     const openCartModal = document.querySelector(".open-cart-modal");
-    openCartModal.addEventListener("click", open_modal);
+    if (openCartModal) {
+        openCartModal.addEventListener("click", open_modal);
+    }
 
 }
 
@@ -188,6 +191,7 @@ function removeFromCart(id) {
 
 function open_modal() {
     printCart();
+    validate();
 }
 
 // id: 1,
