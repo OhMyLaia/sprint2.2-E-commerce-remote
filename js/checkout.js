@@ -18,11 +18,9 @@ function validateNumbersOnly(input) {
 	return regex.test(input);
 }
 
-// const errorMessage = (errorDiv, errorInput) => {
-// 	// document.getElementById(htmlID);
-// 	let message =  `Error, ${errorInput} is missing or there is invalid data!`
-// 	errorDiv.innerHTML = message;
-// }
+const errorMessage = (errorDiv, message) => {
+	errorDiv.innerHTML = message;
+}
 
 
 // Exercise 6
@@ -44,6 +42,7 @@ export function validate() {
 	let errorPassword = document.getElementById("errorPassword");
 	let errorAddress = document.getElementById("errorAddress");
 	let errorPhoneNum = document.getElementById("errorPhone");
+	let allFildsRequired = document.getElementById("error-all-fields-required");
 
 
 	// Validate fields entered by the user: name, phone, password, and email
@@ -91,8 +90,6 @@ export function validate() {
 		}
 	
 		if (error > 0) {
-			alert("Error");
-		} else {
-			alert("OK");
+			errorMessage(allFildsRequired, "Please, fill all the inputs. All fields are required.")
 		}
 }
