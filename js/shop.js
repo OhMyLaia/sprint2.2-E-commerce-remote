@@ -1,5 +1,6 @@
 import products from "./products.js";
 
+
 let cart = [];
 let totalWithDiscount = 0;
 let subtotal = 0;

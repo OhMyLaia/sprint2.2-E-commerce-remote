@@ -1,6 +1,3 @@
-
-
-
 function validateOnlyLetters(word) {
 	let regex = /^[a-zA-Z\s]*$/;
 	return regex.test(word);
@@ -49,35 +46,46 @@ function validate() {
 
 
 	// Validate fields entered by the user: name, phone, password, and email
-	try {
 		if (fName.value.length < 3 || validateOnlyLetters(fName.value) == false) {
 			error++;
-			errorMessage(errorName, "name");
+			errorName.style.display = "block";
+		} else {
+			errorName.style.display = "none";
 		}
 
 		if (fLastname.value.length < 3 || validateOnlyLetters(fLastname.value) == false) {
 			error ++;
-			errorMessage(errorLastname, "lastname");
+			errorLastname.style.display = "block";
+		} else {
+			errorLastname.style.display = "none";
 		}
 	
 		if (fEmail.value.length < 3 || validateEmail(fEmail.value) == false) {
 			error++;
-			errorMessage(errorEmail, "email");
+			errorEmail.style.display = "block";
+		} else {
+			errorEmail.style.display = "none";
 		}
 
 		if (fPassword.value.length < 3 || validateLettersNumbersOnly(fPassword.value)) {
 			error++;
-			errorMessage(errorPassword, "password");
+			errorPassword.style.display = "block";
+		} else {
+			errorPassword.style.display = "none";
 		}
 
 		if (fAddress.value.length < 3) {
 			error++;
-			errorMessage(errorAddress, "address");
+			errorAddress.style.display = "block";
+		} else {
+			errorAddress.style.display = "none";
 		}
 
 		if (fPhoneNum.value.length < 3 || validateNumbersOnly(fPhoneNum.value) == false) {
 			error++;
-			errorMessage(errorPhoneNum, "phone number");
+			errorPhoneNum.style.display = "block";
+		} else {
+			errorPhoneNum.style.display = "none";
 		}
 	
 		// if (error > 0) {
@@ -86,8 +94,5 @@ function validate() {
 		// 	alert("OK");
 		// }
 
-	} catch (error) {
-
-	}
 
 }
