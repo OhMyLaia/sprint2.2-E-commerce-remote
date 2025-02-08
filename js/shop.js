@@ -10,7 +10,8 @@ const resultDiv = htmlID => document.getElementById(htmlID);
 function showMessage(message, div) { div.innerHTML = message; }
 let cartList = resultDiv("cart_list");
 let totalPriceDiv = resultDiv("total_price");
-let subtotalPriceDiv = resultDiv("subtotal_price");
+let subtotalPriceSpan = resultDiv("subtotal_price_span");
+let subtotalPriceDiv = resultDiv("subtotal_price_div");
 let numInCartButtonDiv = resultDiv("count_product");
 
 
@@ -36,12 +37,12 @@ function addEventListeners() {
         });
     }
 
-    const submitBtn = document.querySelector("btn-submit");
+    const submitBtn = document.querySelector("#btn-submit");
     if (submitBtn) {
         submitBtn.addEventListener("click", validate);
     }
 
-    const cleanCartBtn = document.querySelector("clean-cart-btn");
+    const cleanCartBtn = document.querySelector("#clean-cart-btn");
     if (cleanCartBtn) {
         cleanCartBtn.addEventListener("click", cleanCart);
     }
@@ -97,13 +98,17 @@ function buy(id) {
 //* Exercise 2
 function cleanCart() {
     cart = [];
+    subtotal = 0;
+    totalWithDiscount = 0;
+
     showMessage("0", totalPriceDiv);
     showMessage("", cartList);
-    totalWithDiscount = 0;
-    subtotal = 0;
-
+    showMessage("", subtotalPriceSpan);
+    showMessage("", subtotalPriceDiv);
+    
     console.log(`cart cleaned, totalWithDiscount -> ${totalWithDiscount}`);
     console.table(cart);
+    // location.reload();
 }
 
 //* Exercise 3
@@ -177,7 +182,7 @@ function printCart() {
 
     cart.forEach(item => console.log(`checking item: ${item}`));
     
-    cart.forEach( item => {
+    cart.forEach(item => {
         const cartiListRow = document.createElement("tr");
         cartiListRow.innerHTML =
         `
@@ -188,16 +193,12 @@ function printCart() {
 
         <button>delete</button>
         `;
-
-        if (item.offer) {
-            showMessage(subtotal, subtotalPriceDiv);
-        } else {
-            showMessage(subtotal, subtotalPriceDiv);
-        }
-        
         cartList.appendChild(cartiListRow);
     });
 
+    totalWithDiscount == 0 ?
+    showMessage("", subtotalPriceSpan) :
+    showMessage(`Subtotal: $ ${subtotal}`, subtotalPriceSpan);
 
 
 }
@@ -213,6 +214,7 @@ function removeFromCart(id) {
 
 function open_modal() {
     printCart();
+
     // validate();
 }
 
