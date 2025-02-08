@@ -111,6 +111,17 @@ function cleanCart() {
     // location.reload();
 }
 
+function deleteItemFromCart(item) {
+    if (item) {
+        for (let i = 0 ; i < cart.length ; i++) {
+            if (cart[i].id == item.id) {
+                cart.splice(cart[i], 1);
+    
+            }
+        }
+    }
+}
+
 //* Exercise 3
 function calculateTotal() {
     // asi cada vez que llame a la funcion no se suma el resultado
@@ -173,34 +184,86 @@ function applyPromoToProduct(myProduct) {
 
 }
 
+function increaseItemQuantityFunction (index) {
+
+    let itemToModify = cart[index];
+    if (itemToModify) {
+        itemToModify.quantity++;
+        document.getElementById(`quantity-${index}`).innerText = itemToModify.quantity;
+    }
+    printCart();
+}
+function decreaseItemQuantityFunction (index) {
+
+    let itemToModify = cart[index];
+
+    if (!itemToModify) {
+        deleteItemFromCart(itemToModify);
+        document.getElementById("cart_list").innerText = "";
+    } else {
+        itemToModify.quantity--;
+        document.getElementById(`quantity-${index}`).innerText = itemToModify.quantity;
+    }
+    printCart();
+}
+
+
 // Exercise 5
 function printCart() {
 
     console.log(`totalWithDiscount printed: ${totalWithDiscount}`)
     showMessage("", cartList);
     showMessage(calculateTotal(), totalPriceDiv);
-
-    cart.forEach(item => console.log(`checking item: ${item}`));
     
-    cart.forEach(item => {
+    cart.forEach((item, index) => {
         const cartiListRow = document.createElement("tr");
-        cartiListRow.innerHTML =
-        `
-        <td>${item.name}</td>
-        <td>${item.price}</td>
-        <td>${item.quantity}</td>
-        <td>${(item.price * item.quantity).toFixed(2)}</td>
 
-        <button>delete</button>
-        `;
-        cartList.appendChild(cartiListRow);
+        const increaseItemQuantityBtn = document.createElement("button");
+        increaseItemQuantityBtn.classList.add("sum-btn");
+        increaseItemQuantityBtn.innerHTML = " + ";
+        increaseItemQuantityBtn.setAttribute("data-index", index);
+        increaseItemQuantityBtn.addEventListener("click", () => increaseItemQuantityFunction(index));
+
+        const decreaseItemQuantityBtn = document.createElement("button");
+        decreaseItemQuantityBtn.classList.add("subtract-btn");
+        decreaseItemQuantityBtn.innerHTML = "  -  ";
+        decreaseItemQuantityBtn.setAttribute("data-index", index);
+        decreaseItemQuantityBtn.addEventListener("click", () => decreaseItemQuantityFunction(index));
+
+        if (item.quantity !== 0) {
+            cartiListRow.innerHTML =
+            `
+            <td>${item.name}</td>
+            <td>${item.price}</td>
+            <td id="quantity-${index}">${item.quantity}</td>
+            <td>${(item.price * item.quantity).toFixed(2)}</td>
+            `;
+            cartList.appendChild(cartiListRow);
+    
+            const buttonCell = document.createElement("td");
+            buttonCell.appendChild(increaseItemQuantityBtn);
+            buttonCell.appendChild(decreaseItemQuantityBtn);
+            cartiListRow.appendChild(buttonCell);
+
+        } else {
+            cartiListRow.innerHTML = "";
+        }
+
+        document.querySelectorAll(".sum-btn").forEach(button => {
+            button.addEventListener("click", () =>
+                increaseItemQuantityFunction(item));
+        });
+
+        document.querySelectorAll(".subtract-btn").forEach(button => {
+            button.addEventListener("click", () =>
+                decreaseItemQuantityFunction(item));
+        });
+
     });
 
     totalWithDiscount == 0 ?
     showMessage("", subtotalPriceSpan) :
     showMessage(`Subtotal: $ ${subtotal}`, subtotalPriceSpan);
-
-
 }
 
 
