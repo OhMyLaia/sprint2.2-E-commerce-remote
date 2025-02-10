@@ -155,6 +155,7 @@ function increaseItemQuantityFunction (index) {
     }
     printCart();
 }
+
 function decreaseItemQuantityFunction (index) {
 
     let itemToModify = cart[index];
@@ -242,4 +243,5 @@ function deleteItemFromCart(item) {
 
 function open_modal() {
     printCart();
+    cartItemCounter();
 }
