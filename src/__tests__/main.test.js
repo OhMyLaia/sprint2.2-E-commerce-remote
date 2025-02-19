@@ -14,5 +14,11 @@ test("validatePassword must have an argument", () => {
 });
 
 test("password must have 8 digits minimum", () => {
-    expect( () => validatePassword("abc").toThrowError());
-})
+    expect(() => validatePassword("abc")).toThrowError();
+});
+
+test("password must have one capital letter minimum", () => {
+    expect(() => validatePassword("abcdefghijk")). toThrowError();
+});
+
+
