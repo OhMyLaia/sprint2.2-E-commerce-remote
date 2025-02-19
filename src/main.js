@@ -5,4 +5,5 @@ export function validatePassword(input) {
     if (!input) {
         throw Error (`must submit a password`);
     }
+
 }
