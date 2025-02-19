@@ -9,7 +9,7 @@ function validateEmail(email) {
 }
 
 function validateLettersNumbersOnly(password) {
-	let regex = /[^A-Za-z0-9]+/g;
+	let regex = /^[A-Za-z0-9]{4,8}$/;
 	return regex.test(password);
 }
 
@@ -50,49 +50,73 @@ export function validate() {
 			error++;
 			errorName.style.display = "block";
 			fName.classList.add("is-invalid");
-			console.log(`entrando al if`)
+			fName.classList.remove("is-valid");
+			console.log(`entrando al if`);
+
 		} else {
 			errorName.style.display = "none";
+			fName.classList.add("is-valid");
+			fName.classList.remove("is-invalid");
 		}
 
 		if (!fLastname || fLastname.value.length < 3 || !validateOnlyLetters(fLastname.value)) {
 			error ++;
 			errorLastname.style.display = "block";
 			fLastname.classList.add("is-invalid");
+			fLastname.classList.remove("is-valid");
+
 		} else {
 			errorLastname.style.display = "none";
+			fLastname.classList.add("is-valid");
+			fLastname.classList.remove("is-invalid");
 		}
 	
 		if (!fEmail || fEmail.value.length < 3 || !validateEmail(fEmail.value)) {
 			error++;
 			errorEmail.style.display = "block";
 			fEmail.classList.add("is-invalid");
+			fEmail.classList.remove("is-valid");
+
 		} else {
 			errorEmail.style.display = "none";
+			fEmail.classList.add("is-valid");
+			fEmail.classList.remove("is-invalid");
 		}
 
-		if (!fPassword || fPassword.value.length < 3 || !validateLettersNumbersOnly(fPassword.value)) {
+		if (!fPassword || fPassword.value.length < 4 || !validateLettersNumbersOnly(fPassword.value)) {
 			error++;
 			errorPassword.style.display = "block";
 			fPassword.classList.add("is-invalid");
+			fPassword.classList.remove("is-valid");
+
 		} else {
 			errorPassword.style.display = "none";
+			fPassword.classList.add("is-valid");
+			fPassword.classList.remove("is-invalid");
 		}
 
 		if (!fAddress || fAddress.value.length < 3) {
 			error++;
 			errorAddress.style.display = "block";
 			fAddress.classList.add("is-invalid");
+			fAddress.classList.remove("is-valid");
+
 		} else {
 			errorAddress.style.display = "none";
+			fAddress.classList.add("is-valid");
+			fAddress.classList.remove("is-invalid");
 		}
 
-		if (!fPhoneNum || fPhoneNum.value.length < 3 || !validateNumbersOnly(fPhoneNum.value)) {
+		if (!fPhoneNum || fPhoneNum.value.length < 9 || !validateNumbersOnly(fPhoneNum.value)) {
 			error++;
 			errorPhoneNum.style.display = "block";
 			fPhoneNum.classList.add("is-invalid");
+			fPhoneNum.classList.remove("is-valid");
+
 		} else {
 			errorPhoneNum.style.display = "none";
+			fPhoneNum.classList.add("is-valid");
+			fPhoneNum.classList.remove("is-invalid");
 		}
 	
 		if (error > 0) {

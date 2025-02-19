@@ -43,6 +43,8 @@ function addEventListeners() {
     if (cleanCartBtn) {
         cleanCartBtn.addEventListener("click", cleanCart);
     }
+
+    const 
 }
 addEventListeners();
 
@@ -182,13 +184,13 @@ function printCart() {
         const cartiListRow = document.createElement("tr");
 
         const increaseItemQuantityBtn = document.createElement("button");
-        increaseItemQuantityBtn.classList.add("sum-btn", "btn", "btn-success", "btn-sm", "m-2");
+        increaseItemQuantityBtn.classList.add("sum-btn", "btn", "btn-success", "btn-sm", "m-1");
         increaseItemQuantityBtn.innerHTML = " + ";
         increaseItemQuantityBtn.setAttribute("data-index", index);
         increaseItemQuantityBtn.addEventListener("click", () => increaseItemQuantityFunction(index));
 
         const decreaseItemQuantityBtn = document.createElement("button");
-        decreaseItemQuantityBtn.classList.add("subtract-btn", "btn", "btn-secondary", "btn-sm", "m-2");
+        decreaseItemQuantityBtn.classList.add("subtract-btn", "btn", "btn-secondary", "btn-sm", "m-1");
         decreaseItemQuantityBtn.innerHTML = "  -  ";
         decreaseItemQuantityBtn.setAttribute("data-index", index);
         decreaseItemQuantityBtn.addEventListener("click", () => decreaseItemQuantityFunction(index));
