@@ -43,8 +43,6 @@ function addEventListeners() {
     if (cleanCartBtn) {
         cleanCartBtn.addEventListener("click", cleanCart);
     }
-
-    const 
 }
 addEventListeners();
 
@@ -228,7 +226,7 @@ function printCart() {
 
     });
 
-    totalWithDiscount == 0 ?
+    totalWithDiscount === 0 ?
     showMessage("", subtotalPriceSpan) :
     showMessage(`Subtotal: $ ${subtotal}`, subtotalPriceSpan);
 }
