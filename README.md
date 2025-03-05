@@ -1,13 +1,13 @@
 # 📄 E-commerce demo web of vintage-looking whole foods ✨
 - Demo web to purchase products online, you can add and subtract products from the cart, offers also apply automatically and it allows to see the final price.
 
-  ![E-commerce web and its cart](/images/Screenshot 2025-03-05 at 11.54.10.png)
+  ![E-commerce web and its cart](/images/screenshot-for-github.png)
 
 ## 💻 Tech:
 - HTML, CSS, SASS, Bootstrap, Javascript
 
 ## 📋 Requirements
-- 
+- Supported Browsers (Chrome, Firefox, Safari...)
 - Github
 
 ## 🛠️ Development Tools:
